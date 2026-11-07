@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title th:text="${event.title + ' | GamerHub'}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: nav}"></header>
+    <main>
+      <a th:href="@{/eventos}">← Volver a eventos</a>
+      <section class="page-heading">
+        <p class="eyebrow" th:text="${event.category}"></p>
+        <h1 th:text="${event.title}"></h1>
+        <p class="lead" th:text="${event.description}"></p>
+      </section>
+      <section class="detail-grid">
+        <div>
+          <h2>Cuándo y dónde</h2>
+          <dl>
+            <dt>Fecha y hora</dt>
+            <dd
+              th:text="${#temporals.format(event.date,'dd/MM/yyyy') + ' · ' + event.time}"></dd>
+            <dt>Ciudad</dt>
+            <dd th:text="${event.location}"></dd>
+            <dt>Dirección</dt>
+            <dd th:text="${event.address}"></dd>
+          </dl>
+        </div>
+        <div>
+          <h2>Todo para tu visita</h2>
+          <dl>
+            <dt>Organizadores</dt>
+            <dd th:text="${event.organizer}"></dd>
+            <dt>Servicios disponibles</dt>
+            <dd th:text="${event.services}"></dd>
+            <dt>Principales expositores</dt>
+            <dd th:text="${event.exhibitors}"></dd>
+          </dl>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

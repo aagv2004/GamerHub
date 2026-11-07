@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Revisa la dirección | GamerHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: nav}"></header>
+    <main class="form-page">
+      <section class="form-card">
+        <p class="eyebrow" th:text="${status}"></p>
+        <h1>No pudimos completar la solicitud.</h1>
+        <p>Revisa la dirección o vuelve al inicio para continuar.</p>
+        <a class="button" th:href="@{/}">Volver al inicio</a>
+      </section>
+    </main>
+  </body>
+</html>

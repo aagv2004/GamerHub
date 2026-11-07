@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Registro | GamerHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: nav}"></header>
+    <main class="form-page">
+      <section class="form-card">
+        <p class="eyebrow">TU PRÓXIMA COMUNIDAD</p>
+        <h1>Haz espacio para jugar.</h1>
+        <form
+          th:action="@{/registro}"
+          th:object="${registration}"
+          method="post">
+          <div class="notice error" th:if="${#fields.hasAnyErrors()}">
+            <p>
+              Revisa los datos: nombre obligatorio, correo válido y contraseña
+              entre 10 y 60 caracteres.
+            </p>
+            <p th:each="err : ${#fields.errors('email')}" th:text="${err}"></p>
+          </div>
+          <label
+            >Nombre<input
+              th:field="*{name}"
+              required
+              maxlength="80"
+              autocomplete="name" /></label
+          ><label
+            >Correo electrónico<input
+              type="email"
+              th:field="*{email}"
+              required
+              maxlength="150"
+              autocomplete="email" /></label
+          ><label
+            >Contraseña<input
+              type="password"
+              name="password"
+              required
+              minlength="10"
+              maxlength="60"
+              autocomplete="new-password" /><small
+              >Entre 10 y 60 caracteres. Evita reutilizar contraseñas.</small
+            ></label
+          ><button class="button">Crear cuenta →</button>
+        </form>
+        <p>¿Ya tienes cuenta? <a th:href="@{/login}">Ingresar</a></p>
+      </section>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ingresar | GamerHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: nav}"></header>
+    <main class="form-page">
+      <section class="form-card">
+        <p class="eyebrow">BIENVENIDO DE VUELTA</p>
+        <h1>Entra a la comunidad.</h1>
+        <p>Ingresa con el correo de tu cuenta.</p>
+        <p class="notice error" th:if="${param.error}">
+          Correo o contraseña incorrectos.
+        </p>
+        <p class="notice" th:if="${param.logout}">Tu sesión se cerró.</p>
+        <p class="notice" th:if="${param.registered}">
+          Cuenta creada. Ya puedes ingresar.
+        </p>
+        <form th:action="@{/login}" method="post">
+          <label
+            >Correo electrónico<input
+              type="email"
+              name="username"
+              autocomplete="username"
+              required
+              maxlength="150" /></label
+          ><label
+            >Contraseña<input
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              required
+              maxlength="60" /></label
+          ><button class="button">Ingresar →</button>
+        </form>
+        <p>¿Primera vez? <a th:href="@{/registro}">Crea tu cuenta</a></p>
+      </section>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

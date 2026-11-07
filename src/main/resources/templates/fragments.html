@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <header th:fragment="nav" class="nav">
+      <a class="brand" th:href="@{/}">G<span>H</span> / GAMERHUB</a>
+      <nav aria-label="Principal">
+        <a th:href="@{/eventos}">Explorar eventos</a
+        ><a th:if="${signedIn}" th:href="@{/perfil}">Mi perfil</a
+        ><a th:unless="${signedIn}" th:href="@{/login}">Ingresar</a>
+        <form th:if="${signedIn}" th:action="@{/logout}" method="post">
+          <button class="link" type="submit">Cerrar sesión</button>
+        </form>
+      </nav>
+    </header>
+    <footer th:fragment="footer">
+      <strong>GAMERHUB</strong>
+    </footer>
+  </body>
+</html>

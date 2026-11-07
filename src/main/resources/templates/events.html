@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Eventos | GamerHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: nav}"></header>
+    <main>
+      <section class="page-heading">
+        <p class="eyebrow">ENCUENTRA TU PRÓXIMO PLAN</p>
+        <h1>Un evento. Muchas conexiones.</h1>
+        <p>Filtra la agenda y descubre dónde quieres estar.</p>
+      </section>
+      <form class="filters" th:action="@{/eventos}" method="get">
+        <label
+          >Nombre<input
+            name="name"
+            th:value="${name}"
+            placeholder="Nombre del evento"
+            maxlength="100" /></label
+        ><label
+          >Categoría<select name="category">
+            <option value="">Todas</option>
+            <option
+              th:each="c : ${ {'Esports','Indie','Retro'} }"
+              th:value="${c}"
+              th:text="${c}"
+              th:selected="${c == category}"></option></select></label
+        ><label>Fecha<input type="date" name="date" th:value="${date}" /></label
+        ><label
+          >Ubicación<input
+            name="location"
+            th:value="${location}"
+            placeholder="Ej. Santiago"
+            maxlength="100" /></label
+        ><button class="button">Buscar</button
+        ><a th:href="@{/eventos}">Limpiar</a>
+      </form>
+      <p class="notice" th:if="${#lists.isEmpty(events)}">
+        No hay eventos con esos filtros. Prueba otra búsqueda.
+      </p>
+      <div class="cards">
+        <article class="card" th:each="event : ${events}">
+          <div class="card-art">
+            <span th:text="${event.category}"></span><b>↗</b>
+          </div>
+          <div class="card-body">
+            <p
+              class="meta"
+              th:text="${event.location + ' · ' + #temporals.format(event.date,'dd/MM/yyyy')}"></p>
+            <h2 th:text="${event.title}"></h2>
+            <p th:text="${event.description}"></p>
+            <a th:href="@{/eventos/{id}(id=${event.id})}">Ver detalles →</a>
+          </div>
+        </article>
+      </div>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

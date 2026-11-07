@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mi perfil | GamerHub</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: nav}"></header>
+    <main class="form-page">
+      <section class="form-card">
+        <p class="eyebrow">TU IDENTIDAD GAMER</p>
+        <h1>Juega a tu manera.</h1>
+        <p class="notice" th:if="${param.saved}">
+          Perfil guardado correctamente.
+        </p>
+        <form th:action="@{/perfil}" th:object="${profile}" method="post">
+          <p class="notice error" th:if="${#fields.hasAnyErrors()}">
+            Revisa tu nombre de usuario, avatar y juegos (máximo 300
+            caracteres).
+          </p>
+          <label
+            >Nombre de usuario<input
+              th:field="*{nickname}"
+              required
+              maxlength="40" /></label
+          ><label
+            >Avatar<select th:field="*{avatar}">
+              <option value="🎮">🎮 Control</option>
+              <option value="👾">👾 Alien</option>
+              <option value="🕹️">🕹️ Arcade</option>
+              <option value="🚀">🚀 Cohete</option>
+            </select></label
+          ><label
+            >Juegos de interés<textarea
+              th:field="*{games}"
+              maxlength="300"
+              placeholder="League of Legends, Valorant..."></textarea></label
+          ><label class="checkbox"
+            ><input type="checkbox" th:field="*{notifications}" />Quiero recibir
+            novedades de eventos</label
+          ><small
+            >Se guarda tu preferencia. El envío de correos no está
+            implementado.</small
+          ><button class="button">Guardar perfil →</button>
+        </form>
+      </section>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GamerHub | Tu próxima partida empieza acá</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <header th:replace="~{fragments :: nav}"></header>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">ENCUENTRA TU COMUNIDAD</p>
+          <h1>Fuera de la pantalla.<br /><span>Dentro del juego.</span></h1>
+          <p class="lead">
+            Torneos, encuentros y nuevas experiencias. Descubre dónde se reúne
+            la comunidad gamer.
+          </p>
+          <div class="actions">
+            <a class="button" th:href="@{/eventos}">Explorar eventos ↗</a
+            ><a class="button secondary" th:href="@{/registro}"
+              >Crear mi cuenta</a
+            >
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span>✦</span>
+          <div>PLAY<br />MEET<br /><em>REPEAT.</em></div>
+          <p>EL SIGUIENTE NIVEL ES PRESENCIAL</p>
+        </div>
+      </section>
+      <section>
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">AGENDA DE LA COMUNIDAD</p>
+            <h2>Lo que viene</h2>
+          </div>
+          <a th:href="@{/eventos}">Ver todos →</a>
+        </div>
+        <div class="cards">
+          <article class="card" th:each="event : ${events}">
+            <div class="card-art">
+              <span th:text="${event.category}"></span
+              ><b
+                th:text="${event.category == 'Esports' ? '↗' : (event.category == 'Indie' ? '✦' : '◈')}"></b
+              ><span th:if="${event.featured}" class="featured">DESTACADO</span>
+            </div>
+            <div class="card-body">
+              <p
+                class="meta"
+                th:text="${event.location + ' · ' + #temporals.format(event.date,'dd/MM/yyyy')}"></p>
+              <h3 th:text="${event.title}"></h3>
+              <p th:text="${event.description}"></p>
+              <a th:href="@{/eventos/{id}(id=${event.id})}"
+                >Conocer el evento →</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="sponsor-section" aria-labelledby="sponsor-title">
+        <p class="eyebrow">PUBLICIDAD</p>
+        <h2 id="sponsor-title">Marcas del mundo gamer</h2>
+        <ul class="sponsor-strip" tabindex="0" aria-labelledby="sponsor-title">
+          <li class="sponsor-card">
+            <strong>Nexo Gear</strong>
+            <span>Periféricos para jugar</span>
+          </li>
+          <li class="sponsor-card">
+            <strong>Pixel Fuel</strong>
+            <span>Snacks para la próxima partida</span>
+          </li>
+          <li class="sponsor-card">
+            <strong>Respawn Lab</strong>
+            <span>Accesorios para tu setup</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer th:replace="~{fragments :: footer}"></footer>
+  </body>
+</html>
