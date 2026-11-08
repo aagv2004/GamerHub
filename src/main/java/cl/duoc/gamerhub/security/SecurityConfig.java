@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+
 @Configuration
 public class SecurityConfig {
     @Bean PasswordEncoder passwordEncoder(){return new BCryptPasswordEncoder();}
@@ -39,7 +41,17 @@ public class SecurityConfig {
 
     @Bean SecurityFilterChain securityFilterChain(HttpSecurity http, BackendClient backend) throws Exception {
         // Todo lo que no se declara público requiere una sesión autenticada.
-        http.authenticationManager(backend::authenticate).authorizeHttpRequests(auth -> auth
+        http.authenticationManager(backend::authenticate)
+            .headers(headers -> headers.contentSecurityPolicy(csp -> csp.policyDirectives(
+                "default-src 'self'; " +
+                "style-src 'self' https://fonts.googleapis.com; " +
+                "font-src 'self' https://fonts.gstatic.com; " +
+                "object-src 'none'; " +
+                "base-uri 'self'; " +
+                "frame-ancestors 'none'; " +
+                "form-action 'self'"
+            )))
+            .authorizeHttpRequests(auth -> auth
             .requestMatchers("/","/home","/recetas","/registro","/eventos","/login","/css/**","/error").permitAll()
             .anyRequest().authenticated())
             .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/eventos").permitAll())
